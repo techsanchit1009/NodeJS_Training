@@ -6,7 +6,7 @@
   ```
   ![NodeInstall](./Intro_NodeJS/screenshots/node_install.png)
 
-2. **Read file asynchronously and synchronously** (Folder: /Ques1)
+2. **Read file asynchronously and synchronously** (Folder: /Ques2)
 3. **Install dependencies and dev dependencies**
   i. **Dependencies**
   ii. **Dev Dependencies**
