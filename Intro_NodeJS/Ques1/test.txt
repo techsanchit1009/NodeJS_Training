@@ -1,0 +1,4 @@
+This is the start of test.txt
+This is some random file with some test data.
+This data will be used for reading synchronously and asynchronously.
+This is the last line of test.txt

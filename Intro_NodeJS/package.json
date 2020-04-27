@@ -1,0 +1,28 @@
+{
+  "name": "intro_nodejs",
+  "version": "1.0.0",
+  "description": "This is the description for package.json for intro_nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/techsanchit1009/NodeJS_Training/tree/Intro_Day1"
+  },
+  "keywords": [
+    "nodejs",
+    "sync",
+    "async",
+    "http-server",
+    "modules"
+  ],
+  "author": "Sanchit",
+  "license": "ISC",
+  "dependencies": {
+    "http": "0.0.1-security"
+  },
+  "devDependencies": {
+    "crypto.js": "^1.3.1"
+  }
+}
