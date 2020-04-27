@@ -8,10 +8,14 @@
 
 2. **Read file asynchronously and synchronously** (Folder: /Ques2)
 3. **Install dependencies and dev dependencies**
-  i. **Dependencies**
-  ii. **Dev Dependencies**
+  <br/>
+  * **Dependencies**
   ```sh
-    npm install
+    npm install --save <package-name>
+  ```
+  * **Dev Dependencies**
+  ```sh
+    npm install --save-dev <package-name>
   ```
   ![DependencyInstall](./Intro_NodeJS/screenshots/dependencies_install.png)
 
