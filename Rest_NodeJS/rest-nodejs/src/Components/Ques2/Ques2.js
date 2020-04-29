@@ -7,13 +7,13 @@ const Ques2 = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000")
+      .get("http://localhost:4000/students.json")
       .then((response) => setStudentData(response.data));
   }, []);
 
   const filterChangeHandler = (selectedFilter) => {
     console.log(selectedFilter);
-    axios.get(`http://localhost:5000/filter?branch=${selectedFilter}`).then(resp => setStudentData(resp.data));
+    axios.get(`http://localhost:4000/students.json?branch=${selectedFilter}`).then(resp => setStudentData(resp.data));
   }
 
   return (

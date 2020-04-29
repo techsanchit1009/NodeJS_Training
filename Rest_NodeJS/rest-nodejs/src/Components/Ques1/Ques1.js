@@ -6,12 +6,12 @@ const Ques1 = () => {
   const [searchResult, setSearchResult] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:4000').then(resp => setSearchResult(resp.data));
+    axios.get('http://localhost:4000/users.json').then(resp => setSearchResult(resp.data));
   }, []);
 
   const searchHandler = (input) => {
     let searchInput = input.trim('');
-    axios.get(`http://localhost:4000/user?userName=${searchInput}`).then(resp => setSearchResult(resp.data));
+    axios.get(`http://localhost:4000/users.json?userName=${searchInput}`).then(resp => setSearchResult(resp.data));
   }
 
   return(

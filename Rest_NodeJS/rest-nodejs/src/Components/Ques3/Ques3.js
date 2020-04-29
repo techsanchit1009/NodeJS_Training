@@ -8,7 +8,7 @@ const Ques3 = () => {
   const links = ['Home', 'About', 'ContactUs'];
 
   const pageChangeHandler = (pageIndex) => {
-    axios.get(`http://localhost:7000/${links[pageIndex].toLowerCase()}`)
+    axios.get(`http://localhost:4000/${links[pageIndex].toLowerCase()}`)
       .then(resp => setPageResponse(resp.data));
   }
 
