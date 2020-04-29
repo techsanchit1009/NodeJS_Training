@@ -1,0 +1,18 @@
+.TopBar{
+  display: flex;
+}
+
+.TopBar button{
+  font-size: 1rem;
+  background-color: transparent;
+  outline: none;
+  flex: 1;
+  min-height: 10vh;
+  padding: 2rem 0;
+  border: 1px solid #ccc;
+}
+
+.TopBar button:hover{
+  background-color: #ccc;
+  cursor: pointer;
+}
