@@ -9,7 +9,7 @@ router.use(
     secret: "loginSecretData",
     resave: true,
     saveUninitialized: true,
-    cookie: { maxAge: 10 * 1000 },
+    cookie: { maxAge: 10 * 60000 },
   })
 );
 
