@@ -1,27 +1,16 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
-const Login = () => {
+const Login = (props) => {
   let initialLoginState = {
     email: '',
     password: ''
   }
   const [loginData, setLoginData] = useState(initialLoginState);
 
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(loginData);
-    axios.post('http://localhost:5000/login', loginData)
-      .then(resp => {
-        console.log(resp.data);
-        setLoginData(initialLoginState);
-      });
-  }
-
   return (
     <div className="NewUser">
       <h1>Login</h1>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={(event) => props.submitHandler(event, loginData)}>
         <div className="FormControl">
           <label htmlFor="email">EmailID</label>
           <input
@@ -44,7 +33,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Add User</button>
+        <button type="submit">Login</button>
       </form>
     </div>
   )

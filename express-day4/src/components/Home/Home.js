@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import "./Home.css";
 import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
-const Home = () => {
+const Home = (props) => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/users.json')
-      .then(resp => setUserData(resp.data))
+    console.log('home.js');
+    axios.get(`http://localhost:5000/users.json/${props.sessionId}`)
+      .then(resp => {
+        console.log(resp.data);
+        if(typeof resp.data === 'string'){
+          setUserData([]);
+          // alert(resp.data);
+          props.history.push('/login');
+        } else{
+          setUserData(resp.data);
+        }
+      });
   }, []);
 
   const deleteHandler = (userIndex) => {
-    axios.delete(`http://localhost:5000/users.json?id=${userIndex}`)
+    axios.delete(`http://localhost:5000/users.json/${userIndex}`)
       .then(resp => setUserData(resp.data));
   };
 
@@ -48,4 +59,4 @@ const Home = () => {
   )
 }
 
-export default Home;
+export default withRouter(Home);

@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./NewUser.css";
 import axios from 'axios';
+import { withRouter } from "react-router-dom";
 
-const NewUser = () => {
+const NewUser = (props) => {
   let initialUserState = {
     name: '',
     email: ''
@@ -10,10 +11,14 @@ const NewUser = () => {
   const [userData, setUserData] = useState(initialUserState);
   const submitHandler = (event) => {
     event.preventDefault();
-    axios.post('http://localhost:5000/users.json', userData)
+    axios.post(`http://localhost:5000/users.json/${props.sessionId}`, userData)
       .then(resp => {
-        console.log(resp.data);
-        setUserData(initialUserState);
+        if(resp.data){
+          props.history.push('/');
+        } else {
+          // alert('Session has expired');
+          props.history.push('/login');
+        }
       });
   }
   return (
@@ -48,4 +53,4 @@ const NewUser = () => {
   );
 };
 
-export default NewUser;
+export default withRouter(NewUser);

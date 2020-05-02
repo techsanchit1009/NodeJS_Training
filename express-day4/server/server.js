@@ -4,6 +4,7 @@ const cors = require('cors');
 const PORT = 5000;
 const app = express();
 const loginRouter = require('./routes');
+const {sessionStorage} = require('./sessionStorage');
 
 const userData = [];
 let headers = {
@@ -22,27 +23,49 @@ function addDate(req, res, next){
     ...req.body,
     created_on: new Date(Date.now()).toString()
   }
-  console.log(req.body);
   req.body = newBody;
-  console.log(req.body)
   next();
 }
 
-app.route('/users.json')
-  .get((req, res) => {
-    res.send(JSON.stringify(userData));
-  })
-  .delete((req, res) => {
-    userData.splice(req.query.id, 1);
-    res.send(JSON.stringify(userData));
-  })
-  .post(addDate, (req, res) => {
-    userData.push(req.body);
-    res.send(JSON.stringify(userData));
-  });
+const sessionValidator = (req, res, next) => {
+  let sessionId = req.params.id;
+  if(sessionId){
+    const requestSession = sessionStorage.find(session => session.id === sessionId);
+    if(requestSession.expiryDate < Date.now()){
+      req.valid = false;
+    } else {
+      req.valid = true;
+    }
+  }
+  next();
+}
 
-loginRouter(app);
+app.use("/login", loginRouter);
+
+app.route('/users.json/:id')
+  .get(sessionValidator, (req,res) => {
+    if(req.valid){
+      res.send(JSON.stringify(userData));
+    } else {
+      res.send('Session has expired');
+    }
+  })
+
+  .delete((req, res) => {
+    const deleteIndex = req.params.id;
+    userData.splice(deleteIndex, 1);
+    res.send(JSON.stringify(userData));
+  })
+
+  .post(sessionValidator, addDate, (req, res) => {
+    if(req.valid){
+      userData.push(req.body);
+      res.send(true);
+    } else {
+      res.send(false);
+    }
+  });
 
 app.listen(PORT, () => {
   console.log(`Listening to port ${PORT}`);
-})
+});
