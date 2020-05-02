@@ -29,7 +29,6 @@ function addDate(req, res, next){
 
 const sessionValidator = (req, res, next) => {
   let sessionId = req.params.sessionId;
-  console.log(sessionId);
   if(sessionId){
     const requestSession = sessionStorage.find(session => session.id === sessionId);
     if(requestSession.expiryDate < Date.now()){

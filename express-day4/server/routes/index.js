@@ -1,5 +1,6 @@
 const express = require("express");
 const session = require("express-session");
+const axios = require('axios');
 const router = express.Router();
 const {sessionStorage} = require('../sessionStorage');
 
@@ -13,6 +14,12 @@ router.use(
   })
 );
 
+const githubDataMiddleware = async (req, res, next) => {
+  let githubResult = await axios.get(`https://api.github.com/users/${req.body.userName}`);
+  req.githubResult = githubResult;
+  next();
+}
+
 let sessionData = {};
 
 router
@@ -21,15 +28,15 @@ router
     sessionData = req.session;
     res.send(sessionStorage);
   })
-  .post((req, res) => {
+  .post(githubDataMiddleware, (req, res) => {
     sessionData = req.session;
-    sessionData.email = req.body.email;
-    sessionData.password = req.body.password;
+    sessionData.userName = req.body.userName;
 
     let userSession = {
       id: req.sessionID,
-      email: req.session.email,
-      expiryDate: Date.now() + req.session.cookie.originalMaxAge    
+      userName: req.session.userName,
+      expiryDate: Date.now() + req.session.cookie.originalMaxAge,
+      github: req.githubResult.data 
     };
     sessionStorage.push(userSession);
     res.send(userSession);

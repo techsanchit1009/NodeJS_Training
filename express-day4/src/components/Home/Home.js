@@ -57,7 +57,10 @@ const Home = (props) => {
 
   return (
     <div className="Home">
-      <h2>Users:</h2>
+      {!props.githubUrl ? 'Invalid UserName' : (
+        <div>Github Link: <a href={props.githubUrl}>{props.githubUrl}</a></div>
+      )}
+      <h2 style={{marginTop: '1rem'}}>Users:</h2>
       <div className="TableWrapper">
       {userData.length ? userTable : <p>No User Found. Add New User</p>}
       </div>
