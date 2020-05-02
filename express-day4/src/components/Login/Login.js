@@ -10,7 +10,7 @@ const Login = (props) => {
   return (
     <div className="NewUser">
       <h1>Login</h1>
-      <form onSubmit={(event) => props.submitHandler(event, loginData)}>
+      <form onSubmit={(event) => props.loginHandler(event, loginData)}>
         <div className="FormControl">
           <label htmlFor="email">EmailID</label>
           <input

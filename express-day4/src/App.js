@@ -9,7 +9,6 @@ import "./App.css";
 function App(props) {
   const [sessionData, setSessionData] = useState(null);
   useEffect(() => {
-    console.log('app.js');
     let sessionId = sessionStorage.getItem("sessionId");
     let expiryDate = sessionStorage.getItem('expiryDate');
     if(!sessionId){
@@ -24,7 +23,7 @@ function App(props) {
     }
   }, []);
 
-  const submitHandler = (event, loginData) => {
+  const loginHandler = (event, loginData) => {
     event.preventDefault();
     console.log(loginData);
     axios.post('http://localhost:5000/login', loginData)
@@ -41,6 +40,7 @@ function App(props) {
     <Switch>
       <Route path="/" exact render={() => <Home sessionId={sessionData.sessionId} />}></Route>
       <Route path="/add-user" render={() => <NewUser sessionId={sessionData.sessionId} />}></Route>
+      <Route path="/login" render={() => <Login loginHandler={loginHandler}/>}></Route>
       <Redirect to="/" />
     </Switch>
   );
@@ -48,7 +48,7 @@ function App(props) {
   if (!sessionData) {
     routes = (
       <Switch>
-        <Route path="/login" render={() => <Login submitHandler={submitHandler}/>}></Route>
+        <Route path="/login" render={() => <Login loginHandler={loginHandler}/>}></Route>
         <Redirect to="/login" />
       </Switch>
     );

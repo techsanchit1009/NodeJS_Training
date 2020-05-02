@@ -7,23 +7,29 @@ const Home = (props) => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    console.log('home.js');
     axios.get(`http://localhost:5000/users.json/${props.sessionId}`)
       .then(resp => {
         console.log(resp.data);
-        if(typeof resp.data === 'string'){
-          setUserData([]);
-          // alert(resp.data);
-          props.history.push('/login');
-        } else{
+        if(typeof resp.data === 'object'){
           setUserData(resp.data);
+        } else {
+          setUserData([]);
+          alert('Session has expired. Kindly Login again');
+          props.history.push('/login');
         }
       });
-  }, []);
+  }, [props.history, props.sessionId]);
 
   const deleteHandler = (userIndex) => {
-    axios.delete(`http://localhost:5000/users.json/${userIndex}`)
-      .then(resp => setUserData(resp.data));
+    axios.delete(`http://localhost:5000/users.json/${props.sessionId}?id=${userIndex}`)
+      .then(resp => {
+        if(typeof resp.data === 'object'){
+          setUserData(resp.data);
+        } else {
+          alert('Session has expired. Kindly Login again');
+          props.history.push('/login');
+        }
+      });
   };
 
   let userTable = (

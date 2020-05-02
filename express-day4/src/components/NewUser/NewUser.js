@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./NewUser.css";
 import axios from 'axios';
 import { withRouter } from "react-router-dom";
@@ -16,7 +16,7 @@ const NewUser = (props) => {
         if(resp.data){
           props.history.push('/');
         } else {
-          // alert('Session has expired');
+          alert('Session has expired. Kindly Login again');
           props.history.push('/login');
         }
       });

@@ -28,7 +28,8 @@ function addDate(req, res, next){
 }
 
 const sessionValidator = (req, res, next) => {
-  let sessionId = req.params.id;
+  let sessionId = req.params.sessionId;
+  console.log(sessionId);
   if(sessionId){
     const requestSession = sessionStorage.find(session => session.id === sessionId);
     if(requestSession.expiryDate < Date.now()){
@@ -36,13 +37,15 @@ const sessionValidator = (req, res, next) => {
     } else {
       req.valid = true;
     }
+  } else {
+    req.valid = false;
   }
   next();
 }
 
 app.use("/login", loginRouter);
 
-app.route('/users.json/:id')
+app.route('/users.json/:sessionId')
   .get(sessionValidator, (req,res) => {
     if(req.valid){
       res.send(JSON.stringify(userData));
@@ -51,10 +54,14 @@ app.route('/users.json/:id')
     }
   })
 
-  .delete((req, res) => {
-    const deleteIndex = req.params.id;
-    userData.splice(deleteIndex, 1);
-    res.send(JSON.stringify(userData));
+  .delete(sessionValidator, (req, res) => {
+    if(req.valid){
+      const deleteIndex = req.query.id;
+      userData.splice(deleteIndex, 1);
+      res.send(JSON.stringify(userData));
+    } else {
+      res.send('Session has expired');
+    }
   })
 
   .post(sessionValidator, addDate, (req, res) => {
