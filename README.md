@@ -1,16 +1,27 @@
-# Day3 - Express + Middleware
+# Day4 - Custom Middleware + NPM libs
 **The following commands will start the server:**
 ```sh
 cd /server
 node server.js
 ```
-**1. Create a user application which will have a home page, add user page and about us page:**
+**1.Create on custom middleware to validate the session of user if valid session allow to access request otherwise send back.**
 
-**2. On Home, It will list all user in a table. There will be one more column Action in a table which will have a delete option to delete the user.**
+> Initially there is no session maintained when the app starts. The user is redirected to **Login** page automatically and asked for a github username.  
+>Once the user is logged in with the username. His session is maintained on ther server for **10minutes**.  
+>The session validator is a custom Middleware which is stored in **server.js > sessionValidator**
 
-**3. On add New user page, there will be form to create a new user. There will be a middleware that will add the created_on date in user when new user will be created.**
+**2. Create Example for Buffer, Streams and pipe.**  
 
-**4. On About-us page, there will some description of app and app creator.**
+> In assignment4_ques2 folder. The **writeStream** file creates a dummy content of around 2mb text file.  
+> The **readStream** file reads the content of the text file using **Buffers** and **pipes** the read content into another file.
 
->The server runs on port (:5000)
->The React app runs on port ( :3000)
+**3. Create API using Async/Await, fetch github profile and followers. (https://api.github.com/users/_username_)**  
+
+> The API call is made through the **server.js** file using **async/await**, rather than React file.  
+> The API call is made using the **POST** request in routes/index.js file for the route **/login**
+
+**4. Child Process execFile(); example .**  
+
+> In **assignment4_ques4/childProcess.js**.  
+>Since Node JS is single threaded and works for a single process. But there might be cases when single process is not enought to handle the increasing workload on the application.  
+> So in that case, child processes can be created to handle this type of workload.
