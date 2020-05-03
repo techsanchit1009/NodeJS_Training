@@ -8,7 +8,7 @@ import "./App.css";
 
 function App(props) {
   const [sessionData, setSessionData] = useState(null);
-  const [githubUrl, setGithubUrl] = useState('');
+  const [githubData, setGithubData] = useState('');
   useEffect(() => {
     let sessionId = sessionStorage.getItem("sessionId");
     let expiryDate = sessionStorage.getItem('expiryDate');
@@ -33,7 +33,7 @@ function App(props) {
     axios.post('http://localhost:5000/login', data)
       .then(resp => {
         setSessionData({sessionId: resp.data.id, expiryDate: resp.data.expiryDate});
-        setGithubUrl(resp.data.github.html_url);
+        setGithubData(resp.data.github);
         sessionStorage.setItem('sessionId', resp.data.id);
         sessionStorage.setItem('expiryDate', resp.data.expiryDate);
         props.history.push('/');
@@ -42,7 +42,7 @@ function App(props) {
 
   let routes = (
     <Switch>
-      <Route path="/" exact render={() => <Home sessionId={sessionData.sessionId} githubUrl={githubUrl}/>}></Route>
+      <Route path="/" exact render={() => <Home sessionId={sessionData.sessionId} githubData={githubData}/>}></Route>
       <Route path="/add-user" render={() => <NewUser sessionId={sessionData.sessionId} />}></Route>
       <Route path="/login" render={() => <Login loginHandler={loginHandler}/>}></Route>
       <Redirect to="/" />
