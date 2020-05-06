@@ -44,7 +44,7 @@ itemSchema.pre('save', function() {
   this.set({ createdDate: new Date() });
 });
 
-itemSchema.post('updateOne', function() {
+itemSchema.pre('updateOne', function() {
   console.log('update triggered');
   this.set({ updatedDate: Date.now() });
 });
