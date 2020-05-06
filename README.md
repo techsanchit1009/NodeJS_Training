@@ -4,4 +4,6 @@
 <p>Day3 - ExpressJS Basics (branch: <strong>Day3_Express-basics</strong>)</p>
 <p>Day4 - Custom MiddleWare (branch: <strong>Day4_CustomMidWare</strong>)</p>
 <p>Day5 - Intro to MongoDB (branch: <strong>Day5_Intro-Mongo</strong>)</p>
+<p>Day6 - Intro to Mongoose (branch: <strong>Day6_MongooseBasics</strong>)</p>
+
 
