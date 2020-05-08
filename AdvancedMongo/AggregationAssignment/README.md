@@ -7,6 +7,8 @@
 
 > We first added 2 collection with the above mentioned fields except adding the addresses in user collection.  
 
+> Check **userData.json** and **addressData.json** 
+
 **To add the address id as reference:**
 ```sh
 var users = db.userData.find();
