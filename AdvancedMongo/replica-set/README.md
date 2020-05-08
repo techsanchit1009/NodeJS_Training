@@ -1,4 +1,4 @@
-# Day7 - Advanced MongoDB   
+# Day7 - Replica-Set Assignment
 ---
 
 **Start MongoDB without authentication**  
