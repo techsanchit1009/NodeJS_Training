@@ -1,0 +1,21 @@
+.Dashboard{
+  max-width: 90vw;
+  padding: 1rem 0;
+  margin: auto;
+}
+
+.Logout{
+  color: white;
+  background-color: gray;
+  padding: 8px 10px;
+  margin: 1rem 0;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.Logout:hover{
+  transition: all 0.3s;
+  box-shadow: 0 0 5px #aaa;
+  background-color: darkgray;
+}

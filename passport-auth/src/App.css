@@ -1,0 +1,22 @@
+.NavBar{
+  max-width: 90vw;
+  display: flex;
+  padding: 1rem 0;
+  margin: auto;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+}
+
+.NavLinks{
+  display: flex;
+}
+
+.NavLinks div{
+  /* flex: 1; */
+  padding: 0 1rem;
+}
+
+.NavLinks div:first-of-type{
+  border-right: 1px solid #aaa;
+}
