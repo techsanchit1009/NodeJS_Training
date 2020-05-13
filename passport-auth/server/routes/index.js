@@ -1,7 +1,10 @@
 const router = require('express').Router();
+const tokenVerify = require('../middleware/tokenVerify.middleware');
+const axios = require('axios');
 
-router.get('/', (req, res) => {
-  res.send('hello from index route');
+// Dashboard Router
+router.get('/', tokenVerify, async (req, res) => { 
+  res.send({status: true, name: req.user.name});
 });
 
 

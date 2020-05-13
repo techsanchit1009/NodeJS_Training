@@ -2,18 +2,25 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const url = require('url');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 const validateInput = require("../validation");
-
 const User = require("../model/User");
 
 router.post("/login", (req, res, next) => {
-  passport.authenticate("local", (excp, isUser, errMsg) => {
+  passport.authenticate("local", (excp, user, errMsg) => {
     if (excp) {
       res.send({ errors: "Exception", status: false });
-    } else if (!isUser) {
+    } else if (!user) {
       res.send({ error: errMsg, status: false });
     } else {
-      res.send({ status: true, name: isUser.name });
+      const tokenPayload = {
+        name: user.name,
+        email: user.email,
+        password: user.password
+      };
+      const token = jwt.sign(tokenPayload, keys.JWT.TOKEN_SECRET, {expiresIn: '60m'} );
+      res.send({ status: true, name: user.name, token: token });
     }
   })(req, res, next);
 });
@@ -30,14 +37,18 @@ router.get(
   "/google/redirect",
   passport.authenticate("google"),
   (req, res) => {
-    const userData = {
+    const tokenPayload = {
       userName: res.req.user.displayName
+    }
+    const token = jwt.sign(tokenPayload, keys.JWT.TOKEN_SECRET, {expiresIn: '60m'} );
+    const tokenData = {
+      token: token,
+      name: tokenPayload.userName
     }
     res.redirect(url.format({
       pathname: 'http://localhost:3000/',
-      query: userData
+      query: tokenData
     }));
-    // res.send("auth successful");
   }
 );
 
@@ -71,7 +82,13 @@ router.post("/signup", (req, res) => {
             newUser
               .save()
               .then((user) => {
-                res.send({ status: true, name: newUser.name });
+                const tokenPayload = {
+                  name: user.name,
+                  email: user.email,
+                  password: user.password
+                };
+                const token = jwt.sign(tokenPayload, keys.JWT.TOKEN_SECRET, {expiresIn: '30m'} );
+                res.send({ status: true, name: user.name, token: token });
               })
               .catch((err) => console.log(err));
           })

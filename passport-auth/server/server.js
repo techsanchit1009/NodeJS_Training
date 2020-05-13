@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', require('./routes'));
+app.use('/', require('./routes')); // For Dashboard
 app.use('/auth', require('./routes/auth.route'));
 
 

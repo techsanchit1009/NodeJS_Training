@@ -1,5 +1,5 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const keys = require("./keys.passport");
+const keys = require("./keys");
 
 const User = require("../model/User");
 
@@ -25,7 +25,7 @@ module.exports = function (passport) {
                 console.log('new user created', newUser);
               });
           }
-        })
+        });
         return done(null, profile);
       }
     )

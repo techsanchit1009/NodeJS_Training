@@ -17,13 +17,12 @@ const Signup = (props) => {
     event.preventDefault();
     axios.post('http://localhost:5000/auth/signup', signupData)
       .then(resp => {
+        console.log(resp);
         if(resp.data.status){
           alert('Signup Successful');
-          sessionStorage.setItem('name', resp.data.name);
-          props.history.push({
-            pathname: "/",
-            state: {userName: resp.data.name},
-          });
+          sessionStorage.setItem('token', resp.data.token);
+          sessionStorage.setItem('expiryDate', new Date(Date.now() + 60 * 60000))
+          props.history.push("/");
         } else {
           setErrors(resp.data.errors);
         }

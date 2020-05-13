@@ -6,9 +6,10 @@ import { NavLink, Switch, Route } from 'react-router-dom'
 import './App.css';
 
 function App(props) {
+  
   let routes = (
     <Switch>
-    <Route path="/" exact component={Dashboard}></Route>
+    <Route path="/" exact render={Dashboard}></Route>
     <Route path="/login" component={Login}></Route>
     <Route path="/signup" component={Signup}></Route>
     </Switch>

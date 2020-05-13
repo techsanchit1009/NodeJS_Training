@@ -1,25 +1,32 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Dashboard.module.css";
 import axios from "axios";
 import queryString from "query-string";
 import { withRouter, Link } from "react-router-dom";
-import { useEffect } from "react";
-import { useState } from "react";
+
 
 const Dashboard = (props) => {
   const [name, setName] = useState();
 
   useEffect(() => {
-    let user = "";
-    user = queryString.parse(props.location.search);
-    if (!user.length && props.location.state) {
-      user = props.location.state;
+    axios.get('http://localhost:5000', {
+      headers: {'authorization': `bearer ${sessionStorage.getItem('token')}`}
+    })
+    .then(resp => {
+      if(resp.data.status){
+        setName(resp.data.name);
+      } 
+    });
+  }, []);
+
+  useEffect(() => {
+    let token = {};
+    token = queryString.parse(props.location.search);
+    if (Object.keys(token).length > 1) {
+      sessionStorage.setItem("token", token.token);
+      setName(token.name);
     }
-    if (user) {
-      sessionStorage.setItem("name", user.userName);
-    }
-    setName(user.userName);
-  }, [props, name]);
+  }, [props.location.search, name]);
 
   const logoutHandler = async () => {
     const resp = await axios.get("http://localhost:5000/auth/logout");

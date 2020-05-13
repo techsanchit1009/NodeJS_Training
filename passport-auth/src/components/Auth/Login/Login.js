@@ -16,11 +16,9 @@ const Login = (props) => {
     axios.post("http://localhost:5000/auth/login", loginData).then((resp) => {
       if (resp.data.status) {
         alert("Login Successful");
-        sessionStorage.setItem('name', resp.data.name);
-        props.history.push({
-          pathname: "/",
-          state: {userName: resp.data.name},
-        });
+        sessionStorage.setItem('token', resp.data.token);
+        sessionStorage.setItem('expiryDate', new Date(Date.now() + 60 * 60000))
+        props.history.push("/");
       } else {
         setError(resp.data.error);
       }
