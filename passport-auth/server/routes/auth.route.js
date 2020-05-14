@@ -10,7 +10,7 @@ const User = require("../model/User");
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", (excp, user, errMsg) => {
     if (excp) {
-      res.send({ errors: "Exception", status: false });
+      res.sendStatus(400);
     } else if (!user) {
       res.send({ error: errMsg, status: false });
     } else {
