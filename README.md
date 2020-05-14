@@ -2,7 +2,7 @@
 ---
 
 **1. Implement Observer pattern with a problem domain of your choosing.**  
-> **Result**
+> **Result**  
 ![Ques1](./DesignPattern/screenshots/q1.png)
 
 
