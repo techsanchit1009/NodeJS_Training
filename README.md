@@ -7,6 +7,8 @@
 <p>Day6 - Intro to Mongoose (branch: <strong>Day6_MongooseBasics</strong>)</p>
 <p>Day7 - Advanced Mongo (branch: <strong>Day7_AdvanedMongo</strong>)</p>
 <p>Day8 - Passport Auth (branch: <strong>Day8_PassportAuth</strong>)</p>
+<p>Day9 - Design Patterns (branch: <strong>Day9_DesignPatterns</strong>)</p>
+
 
 
 
