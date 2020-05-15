@@ -17,7 +17,7 @@ router.route('/item/:id')
 
 **Check /items folder for model, routes, controller and services**  
 
-> ### Test Cases in /Backend-Testing/test/items.test.js
+> ### Tests in /Backend-Testing/test/items.test.js
 
 ### Testing Output
 ![testResult](./Backend-Testing/screenshots/testResults.png)
